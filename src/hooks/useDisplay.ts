@@ -1,12 +1,13 @@
 import { useState, useEffect, useMemo } from "react"
 import useCalculatorController from "./useCalculatorController"
+import CalculatorController from "controllers/CalculatorController"
 
-const useRunningTotal = () => {
-  const calcController = useCalculatorController()
-  const [total, setTotal] = useState<number>(0)
+const useDisplay = () => {
+  const calcController: CalculatorController = useCalculatorController()
+  const [total, setTotal] = useState<string>("")
 
   const subscription = useMemo(() => {
-    return calcController.onTotalChange((newTotal) => {
+    return calcController.onDisplayChange((newTotal) => {
       setTotal(newTotal)
     })
   }, [calcController])
@@ -18,4 +19,4 @@ const useRunningTotal = () => {
   return total
 }
 
-export default useRunningTotal
+export default useDisplay

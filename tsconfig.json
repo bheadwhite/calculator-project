@@ -12,6 +12,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "noImplicitReturns": false,
+    "paths": {
+      "*": ["*"]
+    },
     "noImplicitThis": true,
     "noImplicitAny": false,
     "strictNullChecks": true,
@@ -23,10 +26,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true,
-    "resolveJsonModule": true,
-    "paths": {
-      "*": ["*"]
-    }
+    "resolveJsonModule": true
   },
   "include": ["src"],
   "exclude": ["node_modules"]

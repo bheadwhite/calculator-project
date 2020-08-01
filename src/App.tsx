@@ -1,11 +1,21 @@
 import React from "react"
 import "./App.css"
-import useCalc from "hooks/useCalculatorController"
+import Display from "components/Display"
+import Button from "components/Button"
+import CircleBtns from "components/CircleBtns"
+
+//componets
+//calculator
+//buttons (numbers | operands, operators | evaluate or = | clear btn)
 
 function App() {
-  const calc = useCalc()
-
-  return <div className='calculator-app'>{calc.getTotal()}</div>
+  return (
+    <div className='calculator-app'>
+      <Display />
+      <Button />
+      <CircleBtns />
+    </div>
+  )
 }
 
 export default App
