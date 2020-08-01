@@ -8,6 +8,10 @@ export default class CalculatorController {
     startingValue && this.runningTotal.next(startingValue)
   }
 
+  getTotal() {
+    return this.runningTotal.getState()
+  }
+
   //define some methods that will mutate the variables
   add(num: number) {
     this.runningTotal.next(this.runningTotal.getState() + num)
