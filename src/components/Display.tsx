@@ -1,11 +1,10 @@
 import React from "react"
-import useRunningTotal from "hooks/useRunningTotal"
-import CircleBtns from "components/CircleBtns"
+import useDisplay from "hooks/useDisplay"
 
 const Display = () => {
-  const total = useRunningTotal()
+  const display = useDisplay()
 
-  return <div>{total}</div>
+  return <div>current display: {display}</div>
 }
 
 export default Display

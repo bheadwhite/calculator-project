@@ -4,11 +4,11 @@ import CalculatorController from "controllers/CalculatorController"
 
 const useDisplay = () => {
   const calcController: CalculatorController = useCalculatorController()
-  const [total, setTotal] = useState<string>("")
+  const [display, setDisplay] = useState<string>(calcController.getDisplay())
 
   const subscription = useMemo(() => {
-    return calcController.onDisplayChange((newTotal) => {
-      setTotal(newTotal)
+    return calcController.onDisplayChange((display) => {
+      setDisplay(display)
     })
   }, [calcController])
 
@@ -16,7 +16,7 @@ const useDisplay = () => {
     return () => subscription.unsubscribe()
   }, [subscription])
 
-  return total
+  return display
 }
 
 export default useDisplay

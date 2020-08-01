@@ -1,20 +1,24 @@
 {
   "compilerOptions": {
     "baseUrl": "src",
-    "lib": ["es2015", "es6", "es7", "ESNext", "dom", "ScriptHost"],
+    "lib": [
+      "es2015",
+      "es6",
+      "es7",
+      "ESNext",
+      "dom",
+      "ScriptHost"
+    ],
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "node",
     "sourceMap": false,
-    "allowJs": false,
+    "allowJs": true,
     "jsx": "react",
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "noEmit": true,
     "noImplicitReturns": false,
-    "paths": {
-      "*": ["*"]
-    },
     "noImplicitThis": true,
     "noImplicitAny": false,
     "strictNullChecks": true,
@@ -28,6 +32,10 @@
     "strict": true,
     "resolveJsonModule": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

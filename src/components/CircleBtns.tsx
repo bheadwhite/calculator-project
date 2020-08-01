@@ -15,7 +15,7 @@ const CircleBtns = () => {
       <div onClick={() => calc.appendDisplay(6)}>6</div>
       <div onClick={() => calc.appendDisplay(7)}>7</div>
       <div onClick={() => calc.appendDisplay(8)}>8</div>
-      <div onClick={() => calc.appendDisplay}>9</div>
+      <div onClick={() => calc.appendDisplay(9)}>9</div>
     </div>
   )
 }

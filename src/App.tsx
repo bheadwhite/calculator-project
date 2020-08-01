@@ -1,7 +1,6 @@
 import React from "react"
 import "./App.css"
 import Display from "components/Display"
-import Button from "components/Button"
 import CircleBtns from "components/CircleBtns"
 
 //componets
@@ -12,7 +11,6 @@ function App() {
   return (
     <div className='calculator-app'>
       <Display />
-      <Button />
       <CircleBtns />
     </div>
   )
