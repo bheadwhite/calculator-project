@@ -12,7 +12,7 @@ export default class CalculatorController {
 
   constructor() {
     this.total = new StatefulSubject<number>(0)
-    this.display = new StatefulSubject<string>("0")
+    this.display = new StatefulSubject<string>("")
   }
 
   private resetOperandsAndOperator() {
