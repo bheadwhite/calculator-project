@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react"
 import useCalculatorController from "./useCalculatorController"
 import CalculatorController from "controllers/CalculatorController"
 
-const useRunningTotal = () => {
+const useTotal = () => {
   const calcController: CalculatorController = useCalculatorController()
   const [total, setTotal] = useState<number>(calcController.getTotal())
 
@@ -19,4 +19,4 @@ const useRunningTotal = () => {
   return total
 }
 
-export default useRunningTotal
+export default useTotal

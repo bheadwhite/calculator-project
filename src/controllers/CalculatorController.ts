@@ -61,8 +61,8 @@ export default class CalculatorController {
     this.resetOperandsAndOperator()
   }
 
-  public appendDisplay(str: string) {
-    this.display.next(this.display.getState() + str)
+  public appendDisplay(number: number | ".") {
+    this.display.next(this.display.getState() + number.toString())
   }
 
   public getDisplay() {
