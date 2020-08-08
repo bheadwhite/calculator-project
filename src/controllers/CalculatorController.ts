@@ -1,88 +1,96 @@
 import StatefulSubject from "./StatefulSubject"
 
 type Operators = null | "add" | "subtract" | "divide" | "multiply"
+type OperandType = number | null
 
 export default class CalculatorController {
-  //define some variables that we want to track
-  private firstEvaluation: boolean = false
-  public runningTotal: StatefulSubject<number> = new StatefulSubject(0)
-  public currentDisplay: StatefulSubject<string> = new StatefulSubject("")
-  public activeOperator = new StatefulSubject(null) as StatefulSubject<
-    Operators
-  >
+  private operand1 = new StatefulSubject<OperandType>(null)
+  private operand2 = new StatefulSubject<OperandType>(null)
+  private operator = new StatefulSubject<Operators>(null)
+  private total
+  private display
 
-  constructor(startingValue?: number) {
-    startingValue && this.runningTotal.next(startingValue)
+  constructor() {
+    this.total = new StatefulSubject<number>(0)
+    this.display = new StatefulSubject<string>("0")
   }
 
-  private add(num1: number, total: number) {
-    // this.runningTotal.next(this.runningTotal.getState() + num)
+  private resetOperandsAndOperator() {
+    this.operand1.next(null)
+    this.operand2.next(null)
+    this.operator.next(null)
   }
 
-  private subtract(num1: number, total: number) {
-    // this.runningTotal.next(this.runningTotal.getState() - num)
-  }
-
-  private divide(num1: number, total: number) {
-    // this.runningTotal.next(this.runningTotal.getState() / num)
-  }
-
-  private multiply(num1: number, total: number) {
-    // this.runningTotal.next(this.runningTotal.getState() * num)
-  }
-
-  private evaluate() {
-    const num1 = Number(this.currentDisplay.getState())
-    const operator = this.activeOperator.getState()
-    const total = this.runningTotal.getState()
-
-    if (operator === "add") {
-      this.add(num1, total)
-    } else if (operator === "subtract") {
-      this.subtract(num1, total)
-    } else if (operator === "divide") {
-      this.divide(num1, total)
-    } else if (operator === "multiply") {
-      this.multiply(num1, total)
+  private setOperand(str) {
+    if (this.operand1.getState() == null) {
+      this.operand1.next(Number(str))
+    } else {
+      this.operand2.next(Number(str))
     }
-
-    this.clearDisplay()
   }
 
-  private clearDisplay() {
-    this.currentDisplay.next("")
+  private add(op1: number, op2: number) {
+    return op1 + op2
+  }
+
+  private subtract(op1: number, op2: number) {
+    return op1 - op2
+  }
+
+  private divide(op1: number, op2: number) {
+    return op1 / op2
+  }
+
+  private multiply(op1: number, op2: number) {
+    return op1 * op2
+  }
+
+  private calculate() {
+    const op1 = this.operand1.getState()
+    const op2 = this.operand2.getState()
+    const operator = this.operator.getState()
+    if (op2 == null || op1 == null || operator == null) {
+      return
+    }
+    const evaluate: (op1: number, op2: number) => number = this[operator]
+    const evaluation = evaluate(op1, op2)
+
+    this.total.next(evaluation)
+    this.display.next(evaluation.toString())
+    this.resetOperandsAndOperator()
+  }
+
+  appendDisplay(str: string) {
+    this.display.next(this.display.getState() + str)
   }
 
   //public methods
-  getTotal() {
-    return this.runningTotal.getState()
-  }
   getDisplay() {
-    return this.currentDisplay.getState()
+    return this.operand1.getState()
   }
-  appendDisplay(number: number | ".") {
-    this.currentDisplay.next(this.currentDisplay.getState() + number.toString())
-  }
+
   setActiveOperator(operator: Operators) {
-    this.activeOperator.next(operator)
-    if (this.firstEvaluation) {
-    }
+    this.operator.next(operator)
   }
 
   //callbacks
   onDisplayChange(callback: (display: string) => void) {
-    return this.currentDisplay.subscribe({
+    return this.display.subscribe({
       next: callback,
     })
   }
 
   onTotalChange(callback: (num: number) => void) {
-    return this.runningTotal.subscribe({
+    return this.total.subscribe({
       next: callback,
     })
   }
 
   dispose() {
-    this.runningTotal.complete()
+    this.total.complete()
+    this.operand1.complete()
+    this.operand2.complete()
+    this.operator.complete()
+    this.display.complete()
   }
 }
