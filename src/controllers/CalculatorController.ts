@@ -7,8 +7,8 @@ export default class CalculatorController {
   private operand1 = new StatefulSubject<OperandType>(null)
   private operand2 = new StatefulSubject<OperandType>(null)
   private operator = new StatefulSubject<Operators>(null)
-  private total
-  private display
+  private total: StatefulSubject<number>
+  private display: StatefulSubject<string>
 
   constructor() {
     this.total = new StatefulSubject<number>(0)
@@ -66,7 +66,7 @@ export default class CalculatorController {
 
   //public methods
   getDisplay() {
-    return this.operand1.getState()
+    return this.display.getState()
   }
 
   setActiveOperator(operator: Operators) {
