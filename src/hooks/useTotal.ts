@@ -1,8 +1,9 @@
 import { useState, useEffect, useMemo } from "react"
 import useCalculatorController from "./useCalculatorController"
+import CalculatorController from "controllers/CalculatorController"
 
 const useRunningTotal = () => {
-  const calcController = useCalculatorController()
+  const calcController: CalculatorController = useCalculatorController()
   const [total, setTotal] = useState<number>(calcController.getTotal())
 
   const subscription = useMemo(() => {

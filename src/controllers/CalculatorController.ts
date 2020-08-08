@@ -45,7 +45,8 @@ export default class CalculatorController {
     return op1 * op2
   }
 
-  private calculate() {
+  //public methods
+  public calculate() {
     const op1 = this.operand1.getState()
     const op2 = this.operand2.getState()
     const operator = this.operator.getState()
@@ -60,33 +61,34 @@ export default class CalculatorController {
     this.resetOperandsAndOperator()
   }
 
-  appendDisplay(str: string) {
+  public appendDisplay(str: string) {
     this.display.next(this.display.getState() + str)
   }
 
-  //public methods
-  getDisplay() {
+  public getDisplay() {
     return this.display.getState()
   }
+  public getTotal() {
+    return this.total.getState()
+  }
 
-  setActiveOperator(operator: Operators) {
+  public setActiveOperator(operator: Operators) {
     this.operator.next(operator)
   }
 
-  //callbacks
-  onDisplayChange(callback: (display: string) => void) {
+  public onDisplayChange(callback: (display: string) => void) {
     return this.display.subscribe({
       next: callback,
     })
   }
 
-  onTotalChange(callback: (num: number) => void) {
+  public onTotalChange(callback: (num: number) => void) {
     return this.total.subscribe({
       next: callback,
     })
   }
 
-  dispose() {
+  public dispose() {
     this.total.complete()
     this.operand1.complete()
     this.operand2.complete()
