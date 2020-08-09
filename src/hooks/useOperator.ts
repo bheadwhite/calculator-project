@@ -1,14 +1,18 @@
 import { useState, useEffect, useMemo } from "react"
 import useCalculatorController from "./useCalculatorController"
 import CalculatorController from "controllers/CalculatorController"
+import { Operators } from "controllers/CalculatorController"
 
-const useTotal = () => {
+//this hook willl always return the active operator
+const useOperator = () => {
   const calcController: CalculatorController = useCalculatorController()
-  const [total, setTotal] = useState<number>(calcController.getTotal())
+  const [operator, setOperator] = useState<Operators>(
+    calcController.getOperator()
+  )
 
   const subscription = useMemo(() => {
-    return calcController.onTotalChange((newTotal) => {
-      setTotal(newTotal)
+    return calcController.onOperatorChange((changedOperator) => {
+      setOperator(changedOperator)
     })
   }, [calcController])
 
@@ -16,7 +20,7 @@ const useTotal = () => {
     return () => subscription.unsubscribe()
   }, [subscription])
 
-  return total
+  return operator
 }
 
-export default useTotal
+export default useOperator

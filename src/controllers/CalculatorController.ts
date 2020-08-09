@@ -1,6 +1,6 @@
 import StatefulSubject from "./StatefulSubject"
 
-type Operators = null | "add" | "subtract" | "divide" | "multiply"
+export type Operators = null | "add" | "subtract" | "divide" | "multiply"
 type OperandType = number | null
 
 export default class CalculatorController {
@@ -9,24 +9,25 @@ export default class CalculatorController {
   private operator = new StatefulSubject<Operators>(null)
   private total: StatefulSubject<number>
   private display: StatefulSubject<string>
+  private clearDisplay: boolean = false
 
   constructor() {
     this.total = new StatefulSubject<number>(0)
     this.display = new StatefulSubject<string>("")
   }
 
-  private resetOperandsAndOperator() {
-    this.operand1.next(null)
+  private combine2Operands() {
+    this.operand1.next(this.total.getState())
     this.operand2.next(null)
     this.operator.next(null)
   }
 
-  private setOperand(str) {
-    if (this.operand1.getState() == null) {
-      this.operand1.next(Number(str))
-    } else {
-      this.operand2.next(Number(str))
-    }
+  private setOperand1(str) {
+    this.operand1.next(Number(str))
+  }
+
+  private setOperand2(str) {
+    this.operand2.next(Number(str))
   }
 
   private add(op1: number, op2: number) {
@@ -46,11 +47,13 @@ export default class CalculatorController {
   }
 
   //public methods
+
+  // clicking '='
   public calculate() {
     const op1 = this.operand1.getState()
-    const op2 = this.operand2.getState()
+    const op2 = this.operand2.getState() || Number(this.display.getState())
     const operator = this.operator.getState()
-    if (op2 == null || op1 == null || operator == null) {
+    if (op1 == null || operator == null) {
       return
     }
     const evaluate: (op1: number, op2: number) => number = this[operator]
@@ -58,11 +61,32 @@ export default class CalculatorController {
 
     this.total.next(evaluation)
     this.display.next(evaluation.toString())
-    this.resetOperandsAndOperator()
+    this.clearDisplay = true
+    this.combine2Operands()
   }
 
-  public appendDisplay(number: number | ".") {
-    this.display.next(this.display.getState() + number.toString())
+  // clicking a number or .
+  public setDisplay(str: string | ".") {
+    if (this.clearDisplay) {
+      this.display.next("")
+      this.clearDisplay = false
+    }
+    this.display.next(this.display.getState() + str)
+  }
+
+  // clicking the "c" button
+  public resetDisplay() {
+    this.display.next("")
+  }
+
+  // clicking the "ac" button
+  public resetAll() {
+    this.operand1.next(null)
+    this.operand2.next(null)
+    this.operator.next(null)
+    this.total.next(0)
+    this.display.next("")
+    this.clearDisplay = false
   }
 
   public getDisplay() {
@@ -71,23 +95,38 @@ export default class CalculatorController {
   public getTotal() {
     return this.total.getState()
   }
+  public getOperator() {
+    return this.operator.getState()
+  }
 
-  public setActiveOperator(operator: Operators) {
+  // clicking an operator
+  public setOperator(operator: Operators) {
+    const value = this.display.getState()
+    if (this.operand1.getState() == null) {
+      this.setOperand1(value)
+      this.clearDisplay = true
+    } else {
+      this.setOperand2(value)
+      this.calculate()
+    }
+
     this.operator.next(operator)
   }
 
+  // for hooks
   public onDisplayChange(callback: (display: string) => void) {
     return this.display.subscribe({
       next: callback,
     })
   }
 
-  public onTotalChange(callback: (num: number) => void) {
-    return this.total.subscribe({
+  public onOperatorChange(callback: (operator: Operators) => void) {
+    return this.operator.subscribe({
       next: callback,
     })
   }
 
+  // for context
   public dispose() {
     this.total.complete()
     this.operand1.complete()

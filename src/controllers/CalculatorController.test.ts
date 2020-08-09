@@ -3,20 +3,27 @@ describe("calculator should...", () => {
   test("add and multiply to the running total", () => {
     const calc = new CalculatorController()
 
-    calc.add(2)
-    expect(calc.runningTotal.getState()).toBe(2)
-
-    calc.multiply(4)
-    expect(calc.runningTotal.getState()).toBe(8)
+    calc.setDisplay("2")
+    expect(calc.getDisplay()).toBe("2")
+    calc.setOperator("add")
+    calc.setDisplay("2")
+    expect(calc.getDisplay()).toBe("2")
+    calc.calculate()
+    expect(calc.getTotal()).toBe(4)
   })
 
   test("subtract and divide to the running total", () => {
-    const calc = new CalculatorController(20)
+    const calc = new CalculatorController()
 
-    calc.subtract(10)
-    expect(calc.runningTotal.getState()).toBe(10)
-
-    calc.divide(5)
-    expect(calc.runningTotal.getState()).toBe(2)
+    calc.setDisplay("10")
+    expect(calc.getDisplay()).toBe("10")
+    calc.setOperator("subtract")
+    calc.setDisplay("2")
+    expect(calc.getDisplay()).toBe("2")
+    calc.setOperator("divide")
+    expect(calc.getDisplay()).toBe("8")
+    calc.setDisplay("4")
+    calc.calculate()
+    expect(calc.getDisplay()).toBe("2")
   })
 })
