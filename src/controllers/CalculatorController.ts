@@ -16,7 +16,7 @@ export default class CalculatorController {
     this.display = new StatefulSubject<string>("")
   }
 
-  private combine2Operands() {
+  private combineOperands() {
     this.operand1.next(this.total.getState())
     this.operand2.next(null)
     this.operator.next(null)
@@ -62,7 +62,7 @@ export default class CalculatorController {
     this.total.next(evaluation)
     this.display.next(evaluation.toString())
     this.clearDisplay = true
-    this.combine2Operands()
+    this.combineOperands()
   }
 
   // clicking a number or .
