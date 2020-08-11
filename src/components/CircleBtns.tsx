@@ -72,54 +72,54 @@ const CircleBtns = () => {
   return (
     <div className={classes.daddyBox}>
       <div>
-        <div className={classes.rowOne} onClick={() => calc.appendDisplay(7)}>
+        <div className={classes.rowOne} onClick={() => calc.setDisplay("7")}>
           7
         </div>
-        <div className={classes.rowOne} onClick={() => calc.appendDisplay(4)}>
+        <div className={classes.rowOne} onClick={() => calc.setDisplay("4")}>
           4
         </div>
-        <div className={classes.rowOne} onClick={() => calc.appendDisplay(1)}>
+        <div className={classes.rowOne} onClick={() => calc.setDisplay("1")}>
           1
         </div>
       </div>
       <div>
-        <div className={classes.rowTwo} onClick={() => calc.appendDisplay(8)}>
+        <div className={classes.rowTwo} onClick={() => calc.setDisplay("8")}>
           8
         </div>
-        <div className={classes.rowTwo} onClick={() => calc.appendDisplay(5)}>
+        <div className={classes.rowTwo} onClick={() => calc.setDisplay("5")}>
           5
         </div>
-        <div className={classes.rowTwo} onClick={() => calc.appendDisplay(2)}>
+        <div className={classes.rowTwo} onClick={() => calc.setDisplay("2")}>
           2
         </div>
       </div>
       <div>
-        <div className={classes.rowThree} onClick={() => calc.appendDisplay(9)}>
+        <div className={classes.rowThree} onClick={() => calc.setDisplay("9")}>
           9
         </div>
-        <div className={classes.rowThree} onClick={() => calc.appendDisplay(6)}>
+        <div className={classes.rowThree} onClick={() => calc.setDisplay("6")}>
           6
         </div>
-        <div className={classes.rowThree} onClick={() => calc.appendDisplay(3)}>
+        <div className={classes.rowThree} onClick={() => calc.setDisplay("3")}>
           3
         </div>
       </div>
       <div>
-        <div className={classes.operators} onClick={() => calc.setActiveOperator("multiply")}>
+        <div className={classes.operators} onClick={() => calc.setOperator("multiply")}>
           x
         </div>
-        <div className={classes.operators} onClick={() => calc.setActiveOperator("subtract")}>
+        <div className={classes.operators} onClick={() => calc.setOperator("subtract")}>
           -
         </div>
-        <div className={classes.operators} onClick={() => calc.setActiveOperator("add")}>
+        <div className={classes.operators} onClick={() => calc.setOperator("add")}>
           +
         </div>
       </div>
       <div className={classes.rowFiveContainer}>
-        <div className={classes.rowFive} onClick={() => calc.appendDisplay(0)}>
+        <div className={classes.rowFive} onClick={() => calc.setDisplay("0")}>
           0
         </div>
-        <div className={classes.rowFive} onClick={() => calc.appendDisplay(".")}>
+        <div className={classes.rowFive} onClick={() => calc.setDisplay(".")}>
           .
         </div>
         <div className={classes.rowFive}>=</div>
