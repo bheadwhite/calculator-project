@@ -37,18 +37,23 @@ const useStyles = makeStyles((theme) => ({
 
   rowFive: {
     borderRadius: "25px",
-    background: "orange",
+    background: "gray",
     padding: "20px",
     width: "15px",
     height: "15px",
-    "& zero": {
-      width: "35px",
-    },
+  },
+
+  zero: {
+    borderRadius: "25px",
+    background: "gray",
+    padding: "20px",
+    width: "70px",
+    height: "15px",
   },
 
   rowFiveContainer: {
     display: "flex",
-    margin: "165px 0px 0px -165px",
+    margin: "220px 0px 0px -220px",
   },
 
   operators: {
@@ -57,6 +62,16 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     width: "15px",
     height: "15px",
+  },
+
+  reset: {
+    textAlign: "center",
+    borderRadius: "25px",
+    background: "lightgray",
+    padding: "20px",
+    width: "15px",
+    height: "15px",
+    alignContent: "center",
   },
 
   daddyBox: {
@@ -72,6 +87,9 @@ const CircleBtns = () => {
   return (
     <div className={classes.daddyBox}>
       <div>
+        <div className={classes.reset} onClick={() => calc.resetAll()}>
+          AC
+        </div>
         <div className={classes.rowOne} onClick={() => calc.setDisplay("7")}>
           7
         </div>
@@ -83,6 +101,7 @@ const CircleBtns = () => {
         </div>
       </div>
       <div>
+        <div className={classes.reset}>+/-</div>
         <div className={classes.rowTwo} onClick={() => calc.setDisplay("8")}>
           8
         </div>
@@ -94,6 +113,7 @@ const CircleBtns = () => {
         </div>
       </div>
       <div>
+        <div className={classes.reset}>%</div>
         <div className={classes.rowThree} onClick={() => calc.setDisplay("9")}>
           9
         </div>
@@ -105,6 +125,9 @@ const CircleBtns = () => {
         </div>
       </div>
       <div>
+        <div className={classes.operators} onClick={() => calc.setOperator("divide")}>
+          /
+        </div>
         <div className={classes.operators} onClick={() => calc.setOperator("multiply")}>
           x
         </div>
@@ -116,21 +139,15 @@ const CircleBtns = () => {
         </div>
       </div>
       <div className={classes.rowFiveContainer}>
-        <div className={classes.rowFive} onClick={() => calc.setDisplay("0")}>
+        <div className={classes.zero} onClick={() => calc.setDisplay("0")}>
           0
         </div>
         <div className={classes.rowFive} onClick={() => calc.setDisplay(".")}>
           .
         </div>
-        <div className={classes.rowFive}>=</div>
-      </div>
-      <div>
-        {/* <div className={classes.rowFour} onClick={() => calc.appendDisplay(7)}>AC</div>
-      <div className={classes.rowFour} onClick={() => calc.appendDisplay(8)}>Weird symbol</div>
-      <div className={classes.rowFour} onClick={() => calc.appendDisplay(9)}>%</div> */}
-        {/* <div className={classes.rowFour} onClick={() => calc.setActiveOperator("divide")}>
-          /
-        </div> */}
+        <div className={classes.operators} onClick={() => calc.calculate()}>
+          =
+        </div>
       </div>
     </div>
   )
