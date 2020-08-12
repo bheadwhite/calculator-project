@@ -102,12 +102,14 @@ export default class CalculatorController {
   // clicking an operator
   public setOperator(operator: Operators) {
     const value = this.display.getState()
-    if (this.operand1.getState() == null) {
-      this.setOperand1(value)
-      this.clearDisplay = true
-    } else {
-      this.setOperand2(value)
-      this.calculate()
+    if (!this.clearDisplay) {
+      if (this.operand1.getState() == null) {
+        this.setOperand1(value)
+        this.clearDisplay = true
+      } else {
+        this.setOperand2(value)
+        this.calculate()
+      }
     }
 
     this.operator.next(operator)

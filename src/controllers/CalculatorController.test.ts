@@ -1,4 +1,5 @@
 import CalculatorController from "./CalculatorController"
+
 describe("calculator should...", () => {
   test("add and multiply to the running total", () => {
     const calc = new CalculatorController()
@@ -25,5 +26,13 @@ describe("calculator should...", () => {
     calc.setDisplay("4")
     calc.calculate()
     expect(calc.getDisplay()).toBe("2")
+  })
+
+  test("multiple operators pressed after each other", () => {
+    const calc = new CalculatorController()
+    calc.setDisplay("10")
+    calc.setOperator("add")
+    calc.setOperator("subtract")
+    expect(calc.getDisplay()).toBe("10")
   })
 })
